@@ -1,0 +1,236 @@
+Got it! Here's the complete plain text breakdown of every single thing the web app does:
+
+---
+
+## AttackSimulator — Complete Functionality Plan
+
+---
+
+### Public Landing Page
+
+The first page anyone sees when they visit the website. It explains what AttackSimulator is, what it does, and why companies need it. It has two buttons — one to register a new company and one to login if already registered. No data is shown here. Anyone can access this page without logging in.
+
+---
+
+### Company Registration Page
+
+This is where a new company signs up for the platform. The person filling this form automatically becomes the Super Admin of that company.
+
+The form collects:
+- Company name
+- Company domain (like company.com)
+- Industry type (Finance, IT, Healthcare, Education, Other)
+- Company size (number of employees)
+- Super Admin full name
+- Super Admin work email
+- Password and confirm password
+
+When submitted, the system creates a new organization record in the database and creates the Super Admin account linked to that organization. After successful registration the Super Admin is redirected to the dashboard.
+
+---
+
+### Login Page
+
+Any user — Super Admin, Admin, HR Manager, or Employee — logs in from this same page using their email and password. After login the system reads their role from the database and redirects them to the correct dashboard automatically.
+
+- Super Admin and Admin go to the Admin Dashboard
+- HR Manager goes to the Employee Management page
+- Employee goes to their personal Training page
+
+---
+
+### Super Admin Dashboard
+
+The Super Admin has access to everything the Admin has, plus one extra thing — managing who is and is not an Admin.
+
+**What Super Admin can do:**
+- See all the same things as Admin
+- View a list of all users in the Organization
+- Remove an Admin completely
+- Every promotion and removal is logged automatically in the audit trail with date, time, and reason
+
+---
+
+### Admin Dashboard
+
+The main control center for running the platform. Admin can see the health of the entire organization's security awareness at a glance.
+
+**What Admin sees on the dashboard:**
+- Total number of employees in the organization
+- Average risk score across all employees
+- Number of high risk employees (score above 70)
+- Total campaigns created and how many are Active
+- A list of departments and their average risk scores
+- Any pending AI lessons waiting for review and approval
+- Red alert notifications for employees whose risk score crossed 80
+
+---
+
+### Campaign Creator Page
+
+This is where Admin creates a new simulation campaign to send to employees. There are three ways to create a campaign:
+
+**Mode 1 — Template Library**
+Admin browses a list of pre-built templates. Each template is a ready-made phishing or social engineering email. Admin picks one, selects the target department or all employees, sets a launch date and time, and launches it.
+
+**Mode 2 — Manual Composer**
+Admin writes everything from scratch. They type the email subject line, write the body of the email, choose the attack type (urgency, authority, reward), pick the target department, and set the schedule. Full control over every word.
+
+**Mode 3 — AI Generator**
+The Admin can generate two ways:
+1.Complete random.
+2.Give a bit context and then generate related to that.
+The approved template is saved for future reuse.
+
+**Campaign statuses:**
+- Draft — created but not launched yet
+- Active — currently running and sending to employees
+- Completed — campaign is finished
+
+---
+
+### Campaign Management Page
+
+Admin can see all campaigns in one list. For each campaign they can:
+- View how many employees received it
+- See the event breakdown — opened, clicked, submitted, reported
+- Edit a draft campaign before launching
+- Launch a draft campaign
+- Delete a campaign
+- View individual employee responses within that campaign
+
+---
+
+### Employee Management Page (HR Dashboard)
+
+This is the main page for HR Managers. HR can see or manage all the employees in their organization. 
+
+**What HR can do:**
+- View a list of all employees in their department with their name, email, risk score, and department
+- Add a new employee manually by filling in their name, email, and department. The system creates their account with a default password
+- Remove an employee from the organization
+- Update an employee's name or department
+- Upload a CSV file to add multiple employees at once (bulk upload). The CSV needs columns for full name, email, and department
+- See the average risk score for their department
+- See which employees in their department are high risk
+
+**What HR cannot do:**
+- Create or manage campaigns
+- See organization-wide analytics
+- Promote anyone to Admin
+
+---
+
+### Analytics Page
+
+Admin and Super Admin can access the full analytics page. It shows detailed data about how the organization is performing.
+
+**Organization level analytics:**
+- Total employees
+- Average risk score across all employees
+- Number of high risk employees
+- Total simulations sent
+- Event breakdown chart — opened vs clicked vs submitted vs reported
+- Department comparison chart — which department has the highest average risk score
+- Risk score trend over time
+
+**Department level analytics:**
+- Average risk score per department
+- Number of employees per department
+- Number of high risk employees per department
+- Which department is performing best and which needs the most attention
+
+**Individual employee analytics:**
+- Full event history for that employee — every simulation they received and how they responded
+- Their risk score history over time
+- Their test scores
+- Their current leaderboard rank
+
+**Use chart.js for charts**
+---
+
+### Lessons Management Page (Admin)
+
+When an employee's risk score crosses 80 the system automatically creates a lesson for them. Admin sees all pending lessons here and must review and approve them before they reach the employee.
+
+**What Admin can do on this page:**
+- See a list of all AI-generated lessons waiting for approval
+- Read the full lesson content
+- Approve the lesson — it gets delivered to the employee immediately
+- Regenerate the lesson — asks the AI to write a new version
+- See which employee it is for and which campaign triggered it
+- See lessons that have already been delivered and their test results
+
+---
+
+### Training Page (Employee Dashboard)
+
+This is the only page employees can access. It is their personal learning space.
+
+**What the employee sees:**
+- Their current risk score displayed clearly
+- Their rank on the security leaderboard
+- Any pending lesson assigned to them — if Admin has approved a lesson it appears here as mandatory reading
+- The lesson content written specifically for the attack type that fooled them
+- After reading the lesson a Real or Scam? quiz appears automatically
+
+---
+
+### Real or Scam? Quiz
+
+After completing their lesson the employee takes a short identification quiz. The quiz shows them a series of example emails or messages and they have to identify whether each one is real or a scam.
+
+**How it works:**
+- Employee reads each example carefully
+- Marks each one as Real or Scam
+- Submits their answers
+- Score is calculated out of 100
+- Pass is 70 and above, fail is below 70
+- Score is sent to Admin automatically
+- Risk score is recalculated based on the test result
+- Leaderboard updates immediately
+
+---
+
+### Security Leaderboard (All Users)
+
+Every user can see the leaderboard — Admin, HR, and Employee all have access to it.
+
+**What it shows:**
+- A ranked list of all employees in the organization
+- Ranking is based on three things — fewest simulations failed, best quiz score, longest streak of passing without failing
+- Each row shows the employee name, department, total simulations received, total failed, best test score, and current streak
+- The current logged-in employee is highlighted in their row so they can see exactly where they stand
+
+---
+
+### Notification System
+
+The platform sends alerts in real time without the page needing to refresh.
+
+**Admin receives alerts for:**
+- Employee risk score crossing 80 — red alert shown on dashboard
+- A new lesson has been approved and delivered
+- A campaign has finished running
+- An employee has completed their quiz
+
+**Employee receives alerts for:**
+- A new training lesson is waiting for them
+- Their quiz result has been recorded
+
+---
+
+### Summary of who can access what
+
+| Page | Super Admin | Admin | HR | Employee |
+|---|---|---|---|---|
+| Landing page | Yes | Yes | Yes | Yes |
+| Admin dashboard | Yes | Yes | No | No |
+| Campaign creator | Yes | Yes | No | No |
+| Campaign management | Yes | Yes | No | No |
+| Employee management | Yes | Yes | Yes | No |
+| Analytics | Yes | Yes | Yes | No |
+| Lessons management | Yes | Yes | No | No |
+| Training page | No | No | Yes | Yes |
+| Scam quiz | No | No | Yes | Yes |
+| Leaderboard | Yes | Yes | Yes | Yes |

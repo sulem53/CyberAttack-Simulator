@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Awareness | AttackSimulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; font-family: sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="glass max-w-2xl w-full p-12 rounded-3xl text-center space-y-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/20 text-red-500 mb-4">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        
+        <h1 class="text-4xl font-extrabold text-white">This was a Security Drill</h1>
+        <p class="text-xl text-slate-300 leading-relaxed">
+            You just clicked on a simulated phishing link. In a real-world scenario, this could have resulted in stolen credentials or a malware infection.
+        </p>
+
+        <div class="bg-blue-500/10 border border-blue-500/20 p-6 rounded-2xl text-left">
+            <h3 class="font-bold text-blue-400 mb-2">What happened?</h3>
+            <ul class="text-slate-400 space-y-2 text-sm">
+                <li>• The link you clicked was part of a controlled internal simulation.</li>
+                <li>• Your interaction has been logged for training purposes.</li>
+                <li>• No real data was compromised during this exercise.</li>
+            </ul>
+        </div>
+
+        <div class="pt-6">
+            <a href="dashboards/employee.html" class="px-8 py-4 bg-blue-500 hover:bg-blue-600 rounded-xl font-bold text-lg transition inline-block">
+                View My Training Dashboard
+            </a>
+        </div>
+    </div>
+</body>
+</html>

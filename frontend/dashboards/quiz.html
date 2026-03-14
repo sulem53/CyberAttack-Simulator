@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real or Scam? Quiz | AttackSimulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .quiz-option { border: 2px solid rgba(255,255,255,0.05); transition: all 0.2s ease; cursor: pointer; }
+        .quiz-option:hover { border-color: rgba(59, 130, 246, 0.5); background: rgba(59, 130, 246, 0.05); }
+        .quiz-option.selected { border-color: #3b82f6; background: rgba(59, 130, 246, 0.15); }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-12 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold">Real or Scam?</h1>
+                <p class="text-slate-400">Question <span id="currentQ">1</span> of 5</p>
+            </div>
+            <div class="w-24 h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div id="progressBar" class="h-full bg-blue-500 transition-all duration-500" style="width: 20%"></div>
+            </div>
+        </header>
+
+        <div id="quizContainer" class="glass p-10 rounded-3xl space-y-8">
+            <div id="questionText" class="text-xl font-bold leading-relaxed">
+                <!-- Question goes here -->
+            </div>
+
+            <div class="bg-white/5 p-6 rounded-2xl font-mono text-sm overflow-x-auto border border-white/5" id="emailContent">
+                <!-- Email body goes here -->
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div onclick="selectOption('real')" class="quiz-option p-6 rounded-2xl flex items-center justify-between" id="optReal">
+                    <span class="font-bold">This is REAL</span>
+                    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div onclick="selectOption('scam')" class="quiz-option p-6 rounded-2xl flex items-center justify-between" id="optScam">
+                    <span class="font-bold">This is a SCAM</span>
+                    <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+            </div>
+
+            <button onclick="nextQuestion()" id="nextBtn" class="w-full py-4 bg-blue-500 hover:bg-blue-600 rounded-xl font-bold text-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                Next Question
+            </button>
+        </div>
+
+        <div id="resultContainer" class="glass p-10 rounded-3xl hidden text-center space-y-8">
+            <h2 class="text-4xl font-extrabold">Quiz Completed!</h2>
+            <div class="text-6xl font-black text-blue-400" id="scoreDisplay">0/5</div>
+            <p class="text-xl text-slate-300" id="resultMsg">You've successfully completed the simulation test.</p>
+            <div class="pt-6">
+                <a href="employee.html" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 rounded-xl font-bold transition inline-block">Return to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/quiz.js"></script>
+</body>
+</html>

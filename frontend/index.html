@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttackSimulator | Cybersecurity Simulation & Risk Assessment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+        }
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-extrabold tracking-tight flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <span>Attack<span class="text-blue-400">Simulator</span></span>
+        </div>
+        <div class="space-x-8 hidden md:flex font-medium text-slate-300">
+            <a href="#" class="hover:text-white transition">Features</a>
+            <a href="#" class="hover:text-white transition">Solutions</a>
+            <a href="#" class="hover:text-white transition">Pricing</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="login.html" class="px-5 py-2 rounded-full font-semibold text-slate-300 hover:text-white transition">Login</a>
+            <a href="register.html" class="px-5 py-2 rounded-full font-semibold btn-primary text-white text-center">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <div class="absolute top-0 -left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-[100px] -z-10"></div>
+        <div class="absolute bottom-40 -right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-[120px] -z-10"></div>
+
+        <span class="px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-semibold mb-6">
+            New: AI-Powered Phishing Simulations
+        </span>
+        
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
+            Strengthen Your Team's <br>
+            <span class="gradient-text">Human Firewall</span>
+        </h1>
+        
+        <p class="text-lg text-slate-400 max-w-2xl mb-10 leading-relaxed">
+            Stop credential theft and social engineering before they happen. Run controlled simulations, evaluate risks, and train your employees to spot even the most sophisticated attacks.
+        </p>
+
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="register.html" class="px-8 py-4 rounded-full font-bold btn-primary text-lg text-center">Start Free Trial</a>
+            <button class="px-8 py-4 rounded-full font-bold border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-lg transition">Watch Demo</button>
+        </div>
+    </main>
+
+    <!-- Stats -->
+    <section class="max-w-7xl mx-auto px-6 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass p-8 rounded-3xl text-center">
+                <div class="text-4xl font-bold mb-2">91%</div>
+                <div class="text-slate-400">Of cyber attacks start with phishing</div>
+            </div>
+            <div class="glass p-8 rounded-3xl text-center">
+                <div class="text-4xl font-bold mb-2">70%</div>
+                <div class="text-slate-400">Reduction in human-led risk</div>
+            </div>
+            <div class="glass p-8 rounded-3xl text-center">
+                <div class="text-4xl font-bold mb-2">&lt;15m</div>
+                <div class="text-slate-400">To launch your first campaign</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 mt-20 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+            <div>&copy; 2026 AttackSimulator Platform. All rights reserved.</div>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Terms of Service</a>
+                <a href="#" class="hover:text-white transition">Ethical Guidelines</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

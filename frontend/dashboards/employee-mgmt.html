@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management | AttackSimulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidebar { background: rgba(15, 23, 42, 0.8); border-right: 1px solid rgba(255, 255, 255, 0.05); }
+        .input-field { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+        .input-field:focus { border-color: #3b82f6; outline: none; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
+        .btn-primary { background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .nav-item { transition: all 0.2s ease; border-radius: 12px; }
+        .nav-item:hover { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+    </style>
+</head>
+<body class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar hidden lg:flex flex-col p-6 fixed h-full z-10">
+        <div class="text-xl font-bold mb-10 flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <span>Attack<span class="text-blue-400">Simulator</span></span>
+        </div>
+        <nav class="flex-1 space-y-2">
+            <a href="admin.html" class="flex items-center space-x-3 p-3 nav-item text-slate-400 font-semibold">
+                <span>Dashboard</span>
+            </a>
+            <a href="campaign-creator.html" class="flex items-center space-x-3 p-3 nav-item text-slate-400 font-semibold">
+                <span>Campaign Creator</span>
+            </a>
+            <a href="campaign-management.html" class="flex items-center space-x-3 p-3 nav-item text-slate-400 font-semibold">
+                <span>Management</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-3 bg-blue-500/10 text-blue-400 border-l-4 border-blue-500 rounded-r-xl font-semibold">
+                <span>Employees</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 p-8">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-bold">Employee Management</h1>
+                <p class="text-slate-400">Add, remove, or monitor individual employee risk profiles.</p>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="toggleModal('bulkModal')" class="px-6 py-3 rounded-xl border border-slate-700 hover:bg-slate-800 font-bold transition">Bulk Upload</button>
+                <button onclick="toggleModal('addModal')" class="px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 font-bold transition">Add Employee</button>
+            </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass p-6 rounded-3xl">
+                <p class="text-slate-400 text-sm">Target Department Avg</p>
+                <h3 class="text-2xl font-bold" id="deptAvg">0.0</h3>
+            </div>
+            <div class="glass p-6 rounded-3xl">
+                <p class="text-slate-400 text-sm">High Risk Employees</p>
+                <h3 class="text-2xl font-bold text-red-400" id="highRiskCount">0</h3>
+            </div>
+            <div class="glass p-6 rounded-3xl">
+                <p class="text-slate-400 text-sm">Last Simulation Date</p>
+                <h3 class="text-2xl font-bold" id="lastSim">N/A</h3>
+            </div>
+        </div>
+
+        <!-- Employee Table -->
+        <div class="glass rounded-3xl overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-white/5 text-slate-400 uppercase text-xs font-bold">
+                    <tr>
+                        <th class="px-6 py-4">Name</th>
+                        <th class="px-6 py-4">Email</th>
+                        <th class="px-6 py-4">Department</th>
+                        <th class="px-6 py-4">Risk Score</th>
+                        <th class="px-6 py-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeList" class="divide-y divide-white/5 font-medium">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+            <div id="loading" class="p-20 text-center text-slate-500">Fetching employees...</div>
+        </div>
+    </main>
+
+    <!-- Add Employee Modal -->
+    <div id="addModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-6">
+        <div class="glass w-full max-w-md p-8 rounded-3xl">
+            <h3 class="text-2xl font-bold mb-6">Add New Employee</h3>
+            <form id="addEmployeeForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" id="addName" required class="input-field w-full px-4 py-3 rounded-xl text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email</label>
+                    <input type="email" id="addEmail" required class="input-field w-full px-4 py-3 rounded-xl text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Department</label>
+                    <select id="addDept" class="input-field w-full px-4 py-3 rounded-xl text-white">
+                        <option value="IT">IT</option>
+                        <option value="Finance">Finance</option>
+                        <option value="HR">HR</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="flex space-x-4 pt-4">
+                    <button type="button" onclick="toggleModal('addModal')" class="flex-1 py-3 rounded-xl border border-slate-700 font-bold">Cancel</button>
+                    <button type="submit" class="flex-1 py-3 rounded-xl btn-primary font-bold">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bulk Upload Modal (Simplification) -->
+    <div id="bulkModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-6">
+        <div class="glass w-full max-w-lg p-8 rounded-3xl">
+            <h3 class="text-2xl font-bold mb-4">Bulk Upload Employees</h3>
+            <p class="text-slate-400 text-sm mb-6">Paste a JSON array of employees: <code class="text-blue-400">[{"fullName": "...", "email": "...", "department": "..."}]</code></p>
+            <textarea id="bulkData" rows="10" class="input-field w-full px-4 py-3 rounded-xl text-white mb-6 font-mono text-xs" placeholder='[{"fullName": "John Doe", "email": "john@company.com", "department": "IT"}]'></textarea>
+            <div class="flex space-x-4">
+                <button type="button" onclick="toggleModal('bulkModal')" class="flex-1 py-3 rounded-xl border border-slate-700 font-bold">Cancel</button>
+                <button id="processBulkBtn" class="flex-1 py-3 rounded-xl btn-primary font-bold">Process Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/employee-mgmt.js"></script>
+</body>
+</html>
